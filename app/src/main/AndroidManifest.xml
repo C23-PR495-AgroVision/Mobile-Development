@@ -12,6 +12,9 @@
         android:theme="@style/Theme.AgroVision"
         tools:targetApi="31">
         <activity
+            android:name=".ui.onboard.OnboardingActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.MainMenuActivity"
             android:exported="false" />
         <activity
@@ -34,7 +37,8 @@
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

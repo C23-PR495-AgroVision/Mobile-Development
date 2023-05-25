@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import com.fari.agrovision.databinding.ActivityMainBinding
 import com.fari.agrovision.ui.home.HomeFragment
+import com.fari.agrovision.ui.onboard.OnboardingActivity
 import java.util.*
 import kotlin.concurrent.timerTask
 
@@ -22,8 +23,8 @@ class MainActivity : AppCompatActivity() {
 
 
         Timer().schedule(timerTask {
-            val moveToHomeFragment = Intent(this@MainActivity, HomeFragment::class.java)
-            startActivity(moveToHomeFragment)
+            val moveToOnboardingActivity = Intent(this@MainActivity, OnboardingActivity::class.java)
+            startActivity(moveToOnboardingActivity)
             finish()
         }, timerSplashScreen)
     }
