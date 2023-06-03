@@ -49,7 +49,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="Hello, Rama!"
+                        android:text="@string/hello"
                         android:textSize="16sp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
-                        android:text="How are you today?"
+                        android:text="@string/hello_greeting"
                         android:textSize="12sp"
                         android:textColor="@color/white"
                         app:layout_constraintStart_toStartOf="@id/tv_hello_name"
@@ -95,7 +95,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Detection"
+                        android:text="@string/detection"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -107,7 +107,7 @@
                         android:id="@+id/iv_detection"
                         android:layout_width="115dp"
                         android:layout_height="93dp"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="8dp"
                         android:src="@drawable/img_home_detection"
                         app:layout_constraintTop_toBottomOf="@id/tv_detection_title"
                         app:layout_constraintStart_toStartOf="parent"
@@ -115,10 +115,10 @@
 
                     <TextView
                         android:id="@+id/tv_detection_desc"
-                        android:layout_width="160dp"
-                        android:layout_height="100dp"
-                        android:text="Identifikasi tingkat kematangan buah dan penyakit pada tanaman dengan lebih baik. Ayo, temukan cara untuk memastikan buah matang sempurna dan melindungi tanaman dari penyakit dengan mencoba deteksi kematangan buah dan penyakit tanaman bersama AgroVision"
-                        android:textSize="8sp"
+                        android:layout_width="200dp"
+                        android:layout_height="120dp"
+                        android:text="@string/detection_text"
+                        android:textSize="10sp"
                         android:textColor="@color/black"
                         app:layout_constraintTop_toTopOf="@id/iv_detection"
                         app:layout_constraintStart_toEndOf="@id/iv_detection"
@@ -135,7 +135,7 @@
                         android:padding="0dp"
                         android:textAllCaps="false"
                         android:background="@drawable/rounded_corner_40_green"
-                        android:text="Deteksi Sekarang"
+                        android:text="@string/detect_now"
                         android:textSize="12sp"
                         android:textStyle="bold"
                         app:layout_constraintStart_toStartOf="parent"
@@ -168,7 +168,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:text="Article"
+                        android:text="@string/article"
                         android:textSize="16sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -180,7 +180,7 @@
                         android:id="@+id/tv_article_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Kumpulan artikel bermanfaat seputar tanaman"
+                        android:text="@string/article_now"
                         android:textSize="12sp"
                         android:textColor="@color/black"
                         app:layout_constraintStart_toStartOf="parent"
@@ -205,5 +205,17 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

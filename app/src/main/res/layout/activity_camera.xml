@@ -6,4 +6,47 @@
     android:layout_height="match_parent"
     tools:context=".ui.camera.CameraActivity">
 
+    <androidx.camera.view.PreviewView
+        android:id="@+id/viewFinder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btn_camera"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_camera_green"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/btn_switch_camera"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="@+id/viewFinder"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_flip_camera"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/btn_gallery"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/btn_camera"
+        app:layout_constraintTop_toTopOf="@id/btn_camera"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/img_scanned"
+        tools:ignore="ContentDescription" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

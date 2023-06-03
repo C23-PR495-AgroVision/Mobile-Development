@@ -30,7 +30,7 @@
             android:id="@+id/tv_plant_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Padi"
+            android:text="@string/plant"
             android:textAlignment="center"
             android:textSize="12sp"
             android:textColor="@color/black"
