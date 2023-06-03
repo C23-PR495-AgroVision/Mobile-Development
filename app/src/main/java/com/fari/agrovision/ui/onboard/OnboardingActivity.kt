@@ -51,9 +51,9 @@ class OnboardingActivity : AppCompatActivity() {
 
         binding.apply {
             btnOnboard.setOnClickListener {
-                val moveToSignInActivity =
+                val moveToSignUpActivity =
                     Intent(this@OnboardingActivity, SignUpActivity::class.java)
-                startActivity(moveToSignInActivity, ActivityOptionsCompat.makeSceneTransitionAnimation(this@OnboardingActivity).toBundle())
+                startActivity(moveToSignUpActivity, ActivityOptionsCompat.makeSceneTransitionAnimation(this@OnboardingActivity).toBundle())
             }
             btnRightOnboard.setOnClickListener {
                 if (currentPosition < onboardList.size - 1)
