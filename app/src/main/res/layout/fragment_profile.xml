@@ -72,9 +72,8 @@
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
+                    android:enabled="false"
                     android:ems="10"
-                    android:focusable="false"
                     android:hint="@string/nama_placeholder"
                     android:inputType="text" />
 
@@ -114,10 +113,9 @@
                     android:id="@+id/et_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
+                    android:enabled="false"
                     android:cursorVisible="false"
                     android:ems="10"
-                    android:focusable="false"
                     android:hint="@string/email_placeholder"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -157,22 +155,22 @@
                     android:id="@+id/et_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:clickable="false"
+                    android:enabled="false"
                     android:cursorVisible="false"
                     android:ems="10"
-                    android:focusable="false"
                     android:inputType="textPassword"
                     android:text="@string/password_placeholder"
                     app:passwordToggleEnabled="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_signup"
+                android:id="@+id/btn_signout"
                 android:layout_width="0dp"
                 android:layout_height="64dp"
                 android:layout_marginStart="74dp"
                 android:layout_marginEnd="74dp"
                 android:alpha="1"
+                android:stateListAnimator="@null"
                 android:layout_marginTop="48dp"
                 android:background="@drawable/rounded_corner_10_yellow"
                 android:text="@string/sign_out"

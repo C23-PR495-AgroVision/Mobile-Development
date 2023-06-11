@@ -1,18 +1,33 @@
 package com.fari.agrovision.ui.onboard
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.core.app.ActivityOptionsCompat
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
 import com.fari.agrovision.R
 import com.fari.agrovision.data.local.model.Onboard
 import com.fari.agrovision.databinding.ActivityOnboardingBinding
+import com.fari.agrovision.ui.MainMenuActivity
+import com.fari.agrovision.ui.auth.AuthViewModel
+import com.fari.agrovision.ui.auth.AuthViewModelFactory
 import com.fari.agrovision.ui.onboard.adapter.OnboardListAdapter
 import com.fari.agrovision.ui.onboard.adapter.OnboardingPageChangeCallback
-import com.fari.agrovision.ui.signup.SignUpActivity
+import com.fari.agrovision.ui.auth.signup.SignUpActivity
 
 class OnboardingActivity : AppCompatActivity() {
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
+
+    private val authViewModel: AuthViewModel by viewModels {
+        AuthViewModelFactory.getInstance(dataStore)
+    }
+
+
     private lateinit var binding: ActivityOnboardingBinding
     private lateinit var onboardListAdapter: OnboardListAdapter
 
@@ -38,6 +53,15 @@ class OnboardingActivity : AppCompatActivity() {
         binding = ActivityOnboardingBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        authViewModel.isLogin().observe(this) {
+            if (!it.isNullOrEmpty()) {
+                val moveToMainMenuActivity =
+                    Intent(this@OnboardingActivity, MainMenuActivity::class.java)
+                startActivity(moveToMainMenuActivity)
+                finish()
+            }
+        }
 
         onboardingPageChangeCallback = OnboardingPageChangeCallback(
             viewPager = binding.viewpagerOnboard,

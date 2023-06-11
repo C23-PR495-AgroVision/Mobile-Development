@@ -45,4 +45,7 @@
     <string name="date">01/06/2023</string>
     <string name="history_title">Penyakit/Kematangan</string>
     <string name="history_desc">Lorem ipsum dolor sit amet consectetur.</string>
+    <string name="password_invalid">Minimal kata sandi terdiri dari 8 karakter</string>
+    <string name="email_invalid">Email tidak valid</string>
+    <string name="logout">Keluar</string>
 </resources>
