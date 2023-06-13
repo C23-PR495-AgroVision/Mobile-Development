@@ -4,13 +4,13 @@ import com.google.gson.annotations.SerializedName
 
 data class UserResponse(
 
-	@field:SerializedName("user")
+	@field:SerializedName("data")
 	val data: DataUser? = null,
 
 	@field:SerializedName("status")
 	val status: String,
 
 	@field:SerializedName("message")
-	val message: String? = null
+	val message: String
 )
 

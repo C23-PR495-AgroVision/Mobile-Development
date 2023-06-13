@@ -14,13 +14,15 @@ object Injection {
         return UserRepository.getInstance(userApiService, authPreferences)
     }
 
-//    fun provideArticleRepository(): ArticleRepository {
-//        val apiService = ApiConfig.getArticleApiService()
-//        return ArticleRepository.getInstance(apiService)
-//    }
-//
 //    fun provideDetectionRepository(): DetectionRepository {
 //        val apiService = ApiConfig.getDetectionApiService()
 //        return DetectionRepository.getInstance(apiService)
 //    }
+
+//    fun provideArticleRepository(): ArticleRepository {
+//        val apiService = ApiConfig.getArticleApiService()
+//        return ArticleRepository.getInstance(apiService)
+//    }
+
+
 }
