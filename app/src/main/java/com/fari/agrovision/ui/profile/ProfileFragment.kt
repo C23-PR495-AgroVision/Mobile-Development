@@ -4,7 +4,11 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.ExifInterface
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import android.util.Patterns
 import androidx.fragment.app.Fragment
@@ -31,6 +35,9 @@ import com.fari.agrovision.ui.auth.AuthViewModelFactory
 import com.google.android.material.textfield.TextInputLayout
 import com.fari.agrovision.data.local.Result
 import com.fari.agrovision.ui.auth.signup.SignUpActivity
+import com.fari.agrovision.ui.camera.CameraActivity
+import java.io.ByteArrayInputStream
+import java.io.IOException
 
 class ProfileFragment : Fragment() {
 
@@ -63,12 +70,12 @@ class ProfileFragment : Fragment() {
 
         authViewModel.isLogin().observe(requireActivity()) { uid ->
             if (uid.isNullOrEmpty()) {
-                Log.i("PROFILE", "SIUUUU GA GET DATA")
+                Log.i("PROFILE", "ABCDEF GA GET DATA")
                 navigateToSignup()
             } else {
                 this.uid = uid.toString()
-                Log.i("PROFILE", "SIUUUU GETDATA $uid")
-                Log.i("PROFILE", "SIUUUU $isAdded")
+                Log.i("PROFILE", "ABCDEF GETDATA $uid")
+                Log.i("PROFILE", "ABCDEF $isAdded")
                 if (isAdded)
                     getDataUser(uid)
             }
@@ -103,24 +110,29 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setDataUserView(dataUser: DataUser) {
-        Log.i("SETDATAUSER", "SIUUUU ${dataUser.imgUrl}")
-        val defaultImg = "https://picsum.photos/200/300.jpg"
-        val shownImgUrl = dataUser.imgUrl ?: defaultImg
+        Log.i("SETDATAUSER", "ABCDEF ${dataUser.imgUrl}")
+//        val defaultImg = "https://picsum.photos/200/300.jpg"
+//        val shownImgUrl = dataUser.imgUrl ?: defaultImg
         binding.apply {
             etName.setText(dataUser.name)
             etEmail.setText(dataUser.email)
-            Glide.with(requireActivity())
-                .load(shownImgUrl)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
-                .into(binding.ivProfile)
+
+            val base64String = dataUser.imgUrl // Your Base64-encoded image string
+            val bitmap = convertBase64ToBitmap(base64String)
+
+            ivProfile.setImageBitmap(bitmap)
+//            Glide.with(requireActivity())
+//                .load(shownImgUrl)
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .skipMemoryCache(true)
+//                .into(binding.ivProfile)
         }
     }
 
     private fun navigateToSignup() {
         Toast.makeText(
             requireContext(),
-            getString(R.string.logout),
+            activity?.getString(R.string.logout),
             Toast.LENGTH_SHORT
         ).show()
         startActivity(Intent(requireActivity(), SignUpActivity::class.java))
@@ -133,29 +145,29 @@ class ProfileFragment : Fragment() {
             btnSignout.setOnClickListener {
                 logout()
             }
-//            btnIvEditProfile.setOnClickListener {
-//                isEditing = true
-//                changeEditable()
-//            }
-//            btnCancel.setOnClickListener {
-//                isEditing = false
-//                changeEditable()
-//            }
-//            imgPhoto.setOnClickListener {
-//                if (isEditing) {
-//                    if (!allPermissionsGranted()) ActivityCompat.requestPermissions(
-//                        requireActivity(),
-//                        REQUIRED_PERMISSIONS,
-//                        REQUEST_CODE_PERMISSIONS
-//                    )
-//                    else {
-//                        startCameraX()
-//                    }
-//                }
-//            }
-//            btnSaveChanges.setOnClickListener {
-//                saveChanges()
-//            }
+            btnIvEditProfile.setOnClickListener {
+                isEditing = true
+                changeEditable()
+            }
+            btnCancel.setOnClickListener {
+                isEditing = false
+                changeEditable()
+            }
+            ivProfile.setOnClickListener {
+                if (isEditing) {
+                    if (!allPermissionsGranted()) ActivityCompat.requestPermissions(
+                        requireActivity(),
+                        REQUIRED_PERMISSIONS,
+                        REQUEST_CODE_PERMISSIONS
+                    )
+                    else {
+                        startCameraX()
+                    }
+                }
+            }
+            btnSaveChanges.setOnClickListener {
+                saveChanges()
+            }
         }
     }
 
@@ -181,20 +193,20 @@ class ProfileFragment : Fragment() {
         }
     }
 
-//    private fun saveChanges() {
+    private fun saveChanges() {
 //        val currentEmail = dataUser.email
 //        val currentName = dataUser.name
-//        val newName = binding.etName.text.toString()
+        val newName = binding.etName.text.toString()
 //        val newEmail = binding.etEmail.text.toString()
 //        val currentPassword = binding.etPassword.text.toString()
 //        val newPassword = binding.etNewPassword.text.toString()
-//        when {
+        when {
 //            !Patterns.EMAIL_ADDRESS.matcher(newEmail).matches() -> {
 //                binding.etEmailLayout.error = "Email does not match the format"
 //            }
-//            newName.isEmpty() -> {
-//                binding.etName.error = "Enter your name"
-//            }
+            newName.isEmpty() -> {
+                binding.etName.error = "Enter your name"
+            }
 //            currentPassword.isEmpty() && newPassword.isNotEmpty() -> {
 //                binding.etPasswordLayout.error = "Enter your current password"
 //            }
@@ -202,46 +214,46 @@ class ProfileFragment : Fragment() {
 //                binding.etNewPasswordLayout.error =
 //                    "New Password must be more than 8 characters"
 //            }
-//            else -> {
+            else -> {
 //                if (currentName != newName)
-//                    authViewModel.editName(
-//                        uid,
-//                        newName,
+                    authViewModel.editName(
+                        uid,
+                        newName,
 //                        currentName
-//                    ).observe(requireActivity()) { result ->
-//                        when (result) {
-//                            is Result.Loading -> {
-//                                binding.progressBar.visibility = View.VISIBLE
-//                            }
-//                            is Result.Success -> {
-//                                isEditing = false
-//                                changeEditable()
-//                                binding.progressBar.visibility = View.GONE
-//                                AlertDialog.Builder(requireActivity()).apply {
-//                                    setTitle("Success")
-//                                    setMessage(result.data)
-//                                    setPositiveButton("Next") { dialog, _ ->
-//                                        dialog.cancel()
-//                                        getDataUser(uid)
-//                                    }
-//                                    create()
-//                                    show()
-//                                }
-//                                Log.i("Output Name", result.data)
-//                            }
-//                            is Result.Error -> {
-//                                isEditing = false
-//                                changeEditable()
-//                                binding.progressBar.visibility = View.GONE
-//                                Toast.makeText(
-//                                    requireActivity(),
-//                                    getString(R.string.msg_failed_changes_name),
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//                                Log.i("Name", result.error)
-//                            }
-//                        }
-//                    }
+                    ).observe(requireActivity()) { result ->
+                        when (result) {
+                            is Result.Loading -> {
+                                binding.progressBar.visibility = View.VISIBLE
+                            }
+                            is Result.Success -> {
+                                isEditing = false
+                                changeEditable()
+                                binding.progressBar.visibility = View.GONE
+                                AlertDialog.Builder(requireActivity()).apply {
+                                    setTitle("Success")
+                                    setMessage(result.data)
+                                    setPositiveButton("Next") { dialog, _ ->
+                                        dialog.cancel()
+                                        getDataUser(uid)
+                                    }
+                                    create()
+                                    show()
+                                }
+                                Log.i("Output Name", result.data)
+                            }
+                            is Result.Error -> {
+                                isEditing = false
+                                changeEditable()
+                                binding.progressBar.visibility = View.GONE
+                                Toast.makeText(
+                                    requireActivity(),
+                                    getString(R.string.msg_failed_changes_name),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                Log.i("Name", result.error)
+                            }
+                        }
+                    }
 //                if ((currentPassword.isNotEmpty() && newPassword.isNotEmpty()) || (currentEmail != newEmail))
 //                    authViewModel.editEmailPassword(
 //                        uid,
@@ -284,97 +296,140 @@ class ProfileFragment : Fragment() {
 //                            }
 //                        }
 //                    }
-//            }
-//        }
-//    }
+            }
+        }
+    }
 
-//    private fun changeEditable() {
-//        binding.apply {
-//            etName.isEnabled = isEditing
+    private fun changeEditable() {
+        binding.apply {
+            etName.isEnabled = isEditing
 //            etEmail.isEnabled = isEditing
 //            etPassword.isEnabled = isEditing
 //            etNewPassword.isEnabled = isEditing
 //            etEmailLayout.error = null
-//            etNameLayout.error = null
+            etNameLayout.error = null
 //            etPasswordLayout.error = null
 //            etNewPasswordLayout.error = null
 //            etPassword.setText("")
 //            etNewPassword.setText("")
-//            if (isEditing) {
-//                animateViewVisibility(btnIvEditProfile, View.GONE)
-//                imgPhoto.alpha = 0.7f
-//                imgPhoto.borderColor =
-//                    ContextCompat.getColor(requireActivity(), R.color.light_green)
-//                animateViewVisibility(btnLogout, View.GONE)
+            if (isEditing) {
+                animateViewVisibility(btnIvEditProfile, View.GONE)
+                ivProfile.alpha = 0.7f
+                ivProfile.borderColor =
+                    ContextCompat.getColor(requireActivity(), R.color.green_soft)
+                animateViewVisibility(btnSignout, View.GONE)
 //                animateViewVisibility(tvNewPassword, View.VISIBLE)
 //                animateViewVisibility(etNewPasswordLayout, View.VISIBLE)
-//                animateViewVisibility(btnSaveChanges, View.VISIBLE)
-//                animateViewVisibility(btnCancel, View.VISIBLE)
+                animateViewVisibility(btnSaveChanges, View.VISIBLE)
+                animateViewVisibility(btnCancel, View.VISIBLE)
 //                binding.etPasswordLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
 //                binding.etNewPasswordLayout.endIconMode = TextInputLayout.END_ICON_PASSWORD_TOGGLE
-//            } else {
-//                animateViewVisibility(btnIvEditProfile, View.VISIBLE)
-//                imgPhoto.alpha = 1f
-//                imgPhoto.borderColor = ContextCompat.getColor(requireActivity(), R.color.white)
-//                animateViewVisibility(btnLogout, View.VISIBLE)
+            } else {
+                animateViewVisibility(btnIvEditProfile, View.VISIBLE)
+                ivProfile.alpha = 1f
+                ivProfile.borderColor = ContextCompat.getColor(requireActivity(), R.color.white)
+                animateViewVisibility(btnSignout, View.VISIBLE)
 //                animateViewVisibility(tvNewPassword, View.INVISIBLE)
 //                animateViewVisibility(etNewPasswordLayout, View.INVISIBLE)
-//                animateViewVisibility(btnSaveChanges, View.INVISIBLE)
-//                animateViewVisibility(btnCancel, View.INVISIBLE)
+                animateViewVisibility(btnSaveChanges, View.INVISIBLE)
+                animateViewVisibility(btnCancel, View.INVISIBLE)
 //                binding.etPasswordLayout.endIconMode = TextInputLayout.END_ICON_NONE
 //                binding.etNewPasswordLayout.endIconMode = TextInputLayout.END_ICON_NONE
+            }
+        }
+    }
+
+    private fun animateViewVisibility(view: View, visibility: Int) {
+        if (view.visibility == visibility) return // No need to animate if already in desired visibility
+
+        val animation: Animation = if (visibility == View.VISIBLE) {
+            AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
+        } else {
+            AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
+        }
+
+        view.apply {
+            startAnimation(animation)
+            this.visibility = visibility
+        }
+    }
+
+    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
+        ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            if (!allPermissionsGranted()) {
+                Toast.makeText(
+                    requireContext(),
+                    getString(R.string.allow_permission),
+                    Toast.LENGTH_SHORT
+                )
+                    .show()
+            } else {
+                startCameraX()
+            }
+        }
+    }
+
+    private fun startCameraX() {
+        val intent = Intent(requireActivity(), CameraActivity::class.java)
+        intent.putExtra(CameraActivity.IS_DETECTION, false)
+
+        startActivity(intent)
+    }
+
+    private fun convertBase64ToBitmap(base64Image: String): Bitmap? {
+        val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
+
+//    private fun convertBase64ToBitmap(base64Image: String): Bitmap? {
+//        val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+//        val inputStream = ByteArrayInputStream(decodedBytes)
+//
+//        try {
+//            val exif = ExifInterface(inputStream)
+//            val orientation = exif.getAttributeInt(ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_NORMAL)
+//            val bitmapOptions = BitmapFactory.Options()
+//            bitmapOptions.inSampleSize = 1
+//            val bitmap = BitmapFactory.decodeStream(inputStream, null, bitmapOptions)
+//
+//            return rotateBitmap(bitmap, orientation)
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        } finally {
+//            try {
+//                inputStream.close()
+//            } catch (e: IOException) {
+//                e.printStackTrace()
 //            }
 //        }
+//
+//        return null
 //    }
 
-//    private fun animateViewVisibility(view: View, visibility: Int) {
-//        if (view.visibility == visibility) return // No need to animate if already in desired visibility
-//
-//        val animation: Animation = if (visibility == View.VISIBLE) {
-//            AnimationUtils.loadAnimation(requireContext(), R.anim.fade_in)
-//        } else {
-//            AnimationUtils.loadAnimation(requireContext(), R.anim.fade_out)
-//        }
-//
-//        view.apply {
-//            startAnimation(animation)
-//            this.visibility = visibility
-//        }
-//    }
-
-//    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-//        ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
-//    }
-//
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-//            if (!allPermissionsGranted()) {
-//                Toast.makeText(
-//                    requireContext(),
-//                    getString(R.string.allow_permission),
-//                    Toast.LENGTH_SHORT
-//                )
-//                    .show()
-//            } else {
-//                startCameraX()
+//    private fun rotateBitmap(bitmap: Bitmap?, orientation: Int): Bitmap? {
+//        if (bitmap != null) {
+//            val matrix = android.graphics.Matrix()
+//            when (orientation) {
+//                ExifInterface.ORIENTATION_ROTATE_90 -> matrix.postRotate(90F)
+//                ExifInterface.ORIENTATION_ROTATE_180 -> matrix.postRotate(180F)
+//                ExifInterface.ORIENTATION_ROTATE_270 -> matrix.postRotate(270F)
 //            }
+//            return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
 //        }
+//        return null
 //    }
 
-//    private fun startCameraX() {
-//        val intent = Intent(requireActivity(), CameraActivity::class.java)
-//        intent.putExtra(CameraActivity.IS_DETECTION, false)
-//
-//        startActivity(intent)
-//    }
-
-//    companion object {
-//        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
-//        private const val REQUEST_CODE_PERMISSIONS = 10
-//    }
+    companion object {
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
+    }
 }
