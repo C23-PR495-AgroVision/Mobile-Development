@@ -40,14 +40,14 @@ class SignInActivity : AppCompatActivity() {
     }
 
     private fun setupAction() {
-//        binding.btnTvReset.setOnClickListener {
-//            val moveToResetPasswordActivity =
-//                Intent(this@LoginActivity, ResetPasswordActivity::class.java)
-//            startActivity(
-//                moveToResetPasswordActivity,
-//                ActivityOptionsCompat.makeSceneTransitionAnimation(this@LoginActivity).toBundle()
-//            )
-//        }
+        binding.btnTvReset.setOnClickListener {
+            val moveToResetPasswordActivity =
+                Intent(this@SignInActivity, ResetPasswordActivity::class.java)
+            startActivity(
+                moveToResetPasswordActivity,
+                ActivityOptionsCompat.makeSceneTransitionAnimation(this@SignInActivity).toBundle()
+            )
+        }
         binding.btnTvSignup.setOnClickListener {
             val moveToSignUpActivity = Intent(this@SignInActivity, SignUpActivity::class.java)
             startActivity(
@@ -89,7 +89,7 @@ class SignInActivity : AppCompatActivity() {
                                 binding.progressBar.visibility = View.GONE
                                 Toast.makeText(
                                     this@SignInActivity,
-                                    "Email atau password salah",
+                                    "Terjadi kesalahan",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
@@ -116,6 +116,7 @@ class SignInActivity : AppCompatActivity() {
         val etEmail = ObjectAnimator.ofFloat(binding.etEmailLayout, View.ALPHA, 1f).setDuration(500)
         val password = ObjectAnimator.ofFloat(binding.tvPassword, View.ALPHA, 1f).setDuration(500)
         val etPassword = ObjectAnimator.ofFloat(binding.etPasswordLayout, View.ALPHA, 1f).setDuration(500)
+        val reset = ObjectAnimator.ofFloat(binding.btnTvReset, View.ALPHA, 1f).setDuration(500)
         val signInNow = ObjectAnimator.ofFloat(binding.btnTvSignup, View.ALPHA, 1f).setDuration(500)
         val btnSignup = ObjectAnimator.ofFloat(binding.btnSignin, View.ALPHA, 1f).setDuration(500)
 
@@ -128,6 +129,7 @@ class SignInActivity : AppCompatActivity() {
                 etEmail,
                 password,
                 etPassword,
+                reset,
                 signInNow,
                 btnSignup
             )

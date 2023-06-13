@@ -12,7 +12,9 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="48dp"
+            android:clipToPadding="false">
 
             <ImageView
                 android:id="@+id/img_logo_name_green"
@@ -189,12 +191,12 @@
                 android:id="@+id/btn_tv_signin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="32dp"
+                android:layout_marginTop="8dp"
                 android:alpha="0"
                 android:text="@string/signin_now"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-                app:layout_constraintTop_toBottomOf="@id/et_password_layout"
+                app:layout_constraintTop_toBottomOf="@id/btn_signup"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -206,18 +208,16 @@
                 android:layout_marginEnd="74dp"
                 android:alpha="0"
                 android:stateListAnimator="@null"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginTop="32dp"
                 android:background="@drawable/rounded_corner_10_yellow"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/btn_tv_signin" />
+                app:layout_constraintTop_toBottomOf="@id/et_password_layout" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

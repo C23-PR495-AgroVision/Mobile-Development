@@ -89,7 +89,7 @@ class SignUpActivity : AppCompatActivity() {
                                 binding.progressBar.visibility = View.GONE
                                 Toast.makeText(
                                     this@SignUpActivity,
-                                    "Email sudah terdaftar",
+                                    "Terjadi kesalahan",
                                     Toast.LENGTH_SHORT
                                 ).show()
                             }
