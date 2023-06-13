@@ -33,11 +33,21 @@ interface UserApiService {
         @Path("uid") uid: String
     ): UserResponse
 
-    @Multipart
+//    @Multipart
+    @FormUrlEncoded
     @POST("user/{uid}/profile-picture")
     suspend fun editProfilePicture(
-        @Path("uid") uid: String,
-        @Part file: MultipartBody.Part,
+        @Field("uid") uid: String,
+        @Field("profilePicture") file: String
+//        @Part file: MultipartBody.Part,
+    ): UserResponse
+
+    @FormUrlEncoded
+    @PUT("user/{uid}/name")
+    suspend fun editName(
+        @Field("uid") uid: String,
+        @Field("name") name: String,
+//        @Field("currentName") currentName: String,
     ): UserResponse
 
 //    @FormUrlEncoded
@@ -49,44 +59,4 @@ interface UserApiService {
 //        @Field("currentEmail") currentEmail: String,
 //        @Field("currentPassword") currentPassword: String,
 //    ): UserResponse
-
-    @FormUrlEncoded
-    @PUT("user/{uid}/name")
-    suspend fun editName(
-        @Path("uid") uid: String,
-        @Field("name") name: String,
-        @Field("currentName") currentName: String,
-    ): UserResponse
-
-//    @GET("stories")
-//    suspend fun getAllStories(
-//        @Header("Authorization") token: String,
-//        @Query("page") page: Int? = null,
-//        @Query("size") size: Int? = null,
-//        @Query("location") location: Int = 0
-//    ): AllStoriesResponse
-//
-//    @GET("stories")
-//    suspend fun getAllStoriesWithLocation(
-//        @Header("Authorization") token: String,
-//        @Query("page") page: Int? = null,
-//        @Query("size") size: Int? = 30,
-//        @Query("location") location: Int = 1
-//    ): AllStoriesResponse
-//
-//    @GET("stories/{id}")
-//    suspend fun getDetailStory(
-//        @Header("Authorization") token: String,
-//        @Path("id") id: String
-//    ): DetailStoryResponse
-//
-//    @Multipart
-//    @POST("stories")
-//    suspend fun addStory(
-//        @Header("Authorization") token: String,
-//        @Part file: MultipartBody.Part,
-//        @Part("description") description: RequestBody,
-//        @Part("lat") lat: RequestBody? = null,
-//        @Part("lon") lon: RequestBody? = null
-//    ): AddStoryResponse
 }
