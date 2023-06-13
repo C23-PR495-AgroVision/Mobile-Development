@@ -48,4 +48,14 @@
     <string name="password_invalid">Minimal kata sandi terdiri dari 8 karakter</string>
     <string name="email_invalid">Email tidak valid</string>
     <string name="logout">Keluar</string>
+    <string name="reset">Reset</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="msg_success_reset">Link reset password telah dikirim ke email</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="save_changes">Save Changes</string>
+    <string name="cancel">Cancel</string>
+    <string name="msg_failed_changes_name">Gagal mengubah nama</string>
+    <string name="allow_permission">Mohon berikan izin akses kamera pada pengaturan</string>
+    <string name="upload">Upload</string>
+    <string name="preview">Preview</string>
 </resources>
