@@ -6,11 +6,9 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.ExifInterface
 import android.os.Bundle
 import android.util.Base64
 import android.util.Log
-import android.util.Patterns
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -25,8 +23,6 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.fragment.app.viewModels
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.fari.agrovision.R
 import com.fari.agrovision.data.remote.model.auth.DataUser
 import com.fari.agrovision.databinding.FragmentProfileBinding
@@ -36,8 +32,6 @@ import com.google.android.material.textfield.TextInputLayout
 import com.fari.agrovision.data.local.Result
 import com.fari.agrovision.ui.auth.signup.SignUpActivity
 import com.fari.agrovision.ui.camera.CameraActivity
-import java.io.ByteArrayInputStream
-import java.io.IOException
 
 class ProfileFragment : Fragment() {
 
@@ -110,16 +104,15 @@ class ProfileFragment : Fragment() {
     }
 
     private fun setDataUserView(dataUser: DataUser) {
-        Log.i("SETDATAUSER", "ABCDEF ${dataUser.imgUrl}")
+        Log.i("SETDATAUSER", "ABCDEF ${dataUser.imgBase64}")
 //        val defaultImg = "https://picsum.photos/200/300.jpg"
 //        val shownImgUrl = dataUser.imgUrl ?: defaultImg
+        val defaultBitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.img_profile)
         binding.apply {
+            val base64String = dataUser.imgBase64 // Your Base64-encoded image string
+            val bitmap = base64String?.let { convertBase64ToBitmap(it) } ?: defaultBitmap
             etName.setText(dataUser.name)
             etEmail.setText(dataUser.email)
-
-            val base64String = dataUser.imgUrl // Your Base64-encoded image string
-            val bitmap = convertBase64ToBitmap(base64String)
-
             ivProfile.setImageBitmap(bitmap)
 //            Glide.with(requireActivity())
 //                .load(shownImgUrl)
@@ -129,14 +122,19 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    private fun convertBase64ToBitmap(base64Image: String): Bitmap? {
+        val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+    }
+
     private fun navigateToSignup() {
         Toast.makeText(
             requireContext(),
-            activity?.getString(R.string.logout),
+            getString(R.string.logout),
             Toast.LENGTH_SHORT
         ).show()
-        startActivity(Intent(requireActivity(), SignUpActivity::class.java))
-        activity?.finish()
+        val intent = Intent(context, SignUpActivity::class.java)
+        startActivity(intent)
     }
 
 
@@ -358,6 +356,7 @@ class ProfileFragment : Fragment() {
         ContextCompat.checkSelfPermission(requireContext(), it) == PackageManager.PERMISSION_GRANTED
     }
 
+    @Suppress("DEPRECATION")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
@@ -383,11 +382,6 @@ class ProfileFragment : Fragment() {
         intent.putExtra(CameraActivity.IS_DETECTION, false)
 
         startActivity(intent)
-    }
-
-    private fun convertBase64ToBitmap(base64Image: String): Bitmap? {
-        val decodedBytes = Base64.decode(base64Image, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
     }
 
 //    private fun convertBase64ToBitmap(base64Image: String): Bitmap? {
