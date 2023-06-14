@@ -150,7 +150,6 @@ class UserRepository private constructor(
 //        try {
 //            val reducedFile = reduceFileImage(imageFile)
 //            val requestImageFile = reducedFile.asRequestBody("image/jpeg".toMediaType())
-//            val imageMultipart = convertImageToStringForServer(imageFile)
 //            val imageMultipart: MultipartBody.Part =
 //                MultipartBody.Part.createFormData("file", imageFile.name, requestImageFile)
 //            val response = userApiService.editProfilePicture(
