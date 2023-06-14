@@ -8,21 +8,21 @@
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.fari.agrovision.ui.home.HomeFragment"
-        android:label="Home"
+        android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/navigation_history"
         android:name="com.fari.agrovision.ui.history.HistoryFragment"
-        android:label="History"
+        android:label="@string/history"
         tools:layout="@layout/fragment_history" />
     <fragment
         android:id="@+id/navigation_detection"
         android:name="com.fari.agrovision.ui.detection.DetectionFragment"
-        android:label="Detection"
+        android:label="@string/detection"
         tools:layout="@layout/fragment_detection" />
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.fari.agrovision.ui.profile.ProfileFragment"
-        android:label="Profile"
+        android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
 </navigation>
