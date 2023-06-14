@@ -33,11 +33,12 @@ interface UserApiService {
         @Path("uid") uid: String
     ): UserResponse
 
-//    @Multipart
     @FormUrlEncoded
+    //    @Multipart
     @POST("user/{uid}/profile-picture")
     suspend fun editProfilePicture(
-        @Field("uid") uid: String,
+        @Path("uid") uid: String,
+//        @Field("uid") uid: String,
         @Field("profilePicture") file: String
 //        @Part file: MultipartBody.Part,
     ): UserResponse
@@ -45,7 +46,8 @@ interface UserApiService {
     @FormUrlEncoded
     @PUT("user/{uid}/name")
     suspend fun editName(
-        @Field("uid") uid: String,
+        @Path("uid") uid: String,
+//        @Field("uid") uid: String,
         @Field("name") name: String,
 //        @Field("currentName") currentName: String,
     ): UserResponse

@@ -8,8 +8,8 @@ interface DetectionApiService {
 
     @Multipart
     @POST("predict")
-    suspend fun postDetectionDisease(
-        @Path("uid") uid: String,
+    suspend fun postDetectionDiseaseRipe(
+        @Field("uid") uid: String,
         @Field("model") model: String,
         @Part file: MultipartBody.Part
     ): DetectionResponse
