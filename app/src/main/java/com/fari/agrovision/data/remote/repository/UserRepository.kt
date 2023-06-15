@@ -106,7 +106,7 @@ class UserRepository private constructor(
             emit(Result.Success(response.message))
 
         } catch (e: Exception) {
-            Log.d("UserRepository", "editEmailPassword: ${e.message.toString()}")
+            Log.d("UserRepository", "editName: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }
@@ -121,7 +121,7 @@ class UserRepository private constructor(
             emit(Result.Success(response.message))
 
         } catch (e: Exception) {
-            Log.d("UserRepository", "editEmailPassword: ${e.message.toString()}")
+            Log.d("UserRepository", "editName: ${e.message.toString()}")
             emit(Result.Error(e.message.toString()))
         }
     }
