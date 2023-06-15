@@ -58,7 +58,7 @@ class ResetPasswordActivity : AppCompatActivity() {
                             is Result.Success -> {
                                 binding.progressBar.visibility = View.GONE
                                 AlertDialog.Builder(this).apply {
-                                    setTitle("Horee!!")
+                                    setTitle("Cek email anda")
                                     setMessage(getString(R.string.msg_success_reset))
                                     setPositiveButton("Lanjut") { _, _ ->
                                         val intent = Intent(context, SignInActivity::class.java)

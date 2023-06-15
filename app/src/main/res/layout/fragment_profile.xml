@@ -74,7 +74,7 @@
                     android:layout_height="wrap_content"
                     android:enabled="false"
                     android:ems="10"
-                    android:hint="@string/nama_placeholder"
+                    tools:hint="@string/nama_placeholder"
                     android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -116,7 +116,7 @@
                     android:enabled="false"
                     android:cursorVisible="false"
                     android:ems="10"
-                    android:hint="@string/email_placeholder"
+                    tools:hint="@string/email_placeholder"
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 

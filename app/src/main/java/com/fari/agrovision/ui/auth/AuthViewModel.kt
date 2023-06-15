@@ -19,19 +19,9 @@ class AuthViewModel(private val userRepository: UserRepository) : ViewModel() {
 
     fun getDataUser(token:String) = userRepository.getDataUser(token).asLiveData()
 
-//    fun editEmailPassword(
-//        token: String,
-//        currentEmail: String,
-//        newEmail: String,
-//        currentPassword: String,
-//        newPassword: String
-//    ) = userRepository.editEmailPassword(token,currentEmail,newEmail,currentPassword,newPassword).asLiveData()
-
     fun editName(
         token: String,
         newName: String,
-//        currentName: String,
-//    ) = userRepository.editName(token,newName,currentName).asLiveData()
     ) = userRepository.editName(token,newName).asLiveData()
 
     fun editProfilePicture(
