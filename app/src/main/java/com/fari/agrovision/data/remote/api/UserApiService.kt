@@ -2,7 +2,6 @@ package com.fari.agrovision.data.remote.api
 
 import com.fari.agrovision.data.remote.model.auth.AuthResponse
 import com.fari.agrovision.data.remote.model.auth.UserResponse
-import okhttp3.MultipartBody
 import retrofit2.http.*
 
 interface UserApiService {
@@ -34,31 +33,17 @@ interface UserApiService {
     ): UserResponse
 
     @FormUrlEncoded
-    //    @Multipart
     @POST("user/{uid}/profile-picture")
     suspend fun editProfilePicture(
         @Path("uid") uid: String,
-//        @Field("uid") uid: String,
         @Field("profilePicture") file: String
-//        @Part file: MultipartBody.Part,
     ): UserResponse
 
     @FormUrlEncoded
     @PUT("user/{uid}/name")
     suspend fun editName(
         @Path("uid") uid: String,
-//        @Field("uid") uid: String,
-        @Field("name") name: String,
-//        @Field("currentName") currentName: String,
+        @Field("name") name: String
     ): UserResponse
 
-//    @FormUrlEncoded
-//    @PUT("edit-email/{uid}")
-//    suspend fun editEmailPassword(
-//        @Path("uid") uid: String,
-//        @Field("email") email: String,
-//        @Field("password") password: String,
-//        @Field("currentEmail") currentEmail: String,
-//        @Field("currentPassword") currentPassword: String,
-//    ): UserResponse
 }

@@ -18,16 +18,23 @@ import com.fari.agrovision.databinding.ActivityImagePreviewBinding
 import com.fari.agrovision.ui.auth.AuthViewModel
 import com.fari.agrovision.ui.auth.AuthViewModelFactory
 import com.fari.agrovision.data.local.Result
+import com.fari.agrovision.ui.MainMenuActivity
+import com.fari.agrovision.ui.detection.DetectionResultActivity
+import com.fari.agrovision.ui.detection.DetectionViewModel
+import com.fari.agrovision.ui.detection.DetectionViewModelFactory
+import com.fari.agrovision.ui.home.HomeFragment
 import java.io.File
 
 class ImagePreviewActivity : AppCompatActivity() {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
 
     private var uid: String? = null
+    private var model: String? = "PD-apple"
+    private var title: String? = "Apel"
 
     private var isDetection = true
-    private var isDiseaseRipe = true
     private var imageFile: File? = null
+    private var imagePath: String? = null
 
     private lateinit var binding: ActivityImagePreviewBinding
 
@@ -35,9 +42,9 @@ class ImagePreviewActivity : AppCompatActivity() {
         AuthViewModelFactory.getInstance(dataStore)
     }
 
-//    private val detectionViewModel: DetectionViewModel by viewModels {
-//        DetectionViewModelFactory.getInstance()
-//    }
+    private val detectionViewModel: DetectionViewModel by viewModels {
+        DetectionViewModelFactory.getInstance()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,17 +62,21 @@ class ImagePreviewActivity : AppCompatActivity() {
         setToolBar()
         setPreviewImage()
         setAction()
+
+        Log.i("IMAGEPREVIEW", "NAMA MODEL = ${model}")
     }
 
     private fun getCondition() {
         isDetection = intent.getBooleanExtra(IS_DETECTION, true)
-        isDiseaseRipe = intent.getBooleanExtra(IS_DISEASE_RIPE, true)
+        model = intent.getStringExtra(MODEL).toString()
+        imagePath = intent.getStringExtra(IMAGE_PATH)
+        title = intent.getStringExtra(TITLE)
     }
 
     private fun setAction() {
         binding.btnUpload.setOnClickListener {
             if (isDetection) {
-//                postDetection(isDiseaseRipe)
+                postDetection()
 
             } else {
                 uploadProfilePicture()
@@ -73,49 +84,48 @@ class ImagePreviewActivity : AppCompatActivity() {
         }
     }
 
-//    private fun postDetection(isDiseaseRipe: Boolean) {
-//        if (!uid.isNullOrEmpty())
-//            if (isDiseaseRipe) {
-//                detectionViewModel.postDetectionDisease(uid!!, imageFile!!)
-//                    .observe(this) { result ->
-//                        when (result) {
-//                            is Result.Loading -> {
-//                                binding.progressBar.visibility = View.VISIBLE
-//                            }
-//                            is Result.Success -> {
-//                                binding.progressBar.visibility = View.GONE
-//                                val dataResult = result.data
-//                                val intent = Intent(
-//                                    this@ImagePreviewActivity,
-//                                    DetectionResultActivity::class.java
-//                                )
-//                                intent.putExtra(
-//                                    DetectionResultActivity.DETECTION_RESULT,
-//                                    dataResult
-//                                )
-//                                startActivity(intent)
-//                                finish()
-//                            }
-//                            is Result.Error -> {
-//                                binding.progressBar.visibility = View.GONE
-//                                Toast.makeText(
-//                                    this,
-//                                    "Failed to detect disease",
-//                                    Toast.LENGTH_SHORT
-//                                ).show()
-//
-//                            }
-//                        }
-//                    }
-//            } else
-//                Toast.makeText(
-//                    this,
-//                    "Failed to obtain user authentication",
-//                    Toast.LENGTH_SHORT
-//                ).show()
-//
-//
-//    }
+    private fun postDetection() {
+        if (!uid.isNullOrEmpty()) {
+            detectionViewModel.postDetection(uid!!, model!!, imageFile!!)
+                .observe(this) { result ->
+                    when (result) {
+                        is Result.Loading -> {
+                            binding.progressBar.visibility = View.VISIBLE
+                        }
+                        is Result.Success -> {
+                            binding.progressBar.visibility = View.GONE
+                            val dataResult = result.data
+                            val intent = Intent(
+                                this@ImagePreviewActivity,
+                                DetectionResultActivity::class.java
+                            )
+                            intent.putExtra(
+                                DetectionResultActivity.DETECTION_RESULT,
+                                dataResult
+                            )
+                            intent.putExtra(DetectionResultActivity.IMAGE_PATH, imagePath)
+                            intent.putExtra(DetectionResultActivity.TITLE, title)
+                            startActivity(intent)
+                            finish()
+                        }
+                        is Result.Error -> {
+                            binding.progressBar.visibility = View.GONE
+                            Toast.makeText(
+                                this,
+                                "Failed to detect disease",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }
+                }
+        } else
+            Toast.makeText(
+                this,
+                "Failed to obtain user authentication",
+                Toast.LENGTH_SHORT
+            ).show()
+    }
 
     private fun uploadProfilePicture() {
         if (!uid.isNullOrEmpty())
@@ -180,7 +190,8 @@ class ImagePreviewActivity : AppCompatActivity() {
 
     companion object {
         const val IS_DETECTION = "is_detection"
-        const val IS_DISEASE_RIPE = "is_disease_ripe"
         const val IMAGE_PATH = "image_absolute_path"
+        const val MODEL = "model_name"
+        const val TITLE = "detection_title"
     }
 }

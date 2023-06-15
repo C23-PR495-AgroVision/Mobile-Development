@@ -36,17 +36,17 @@ fun createFile(application: Application): File {
     return File(outputDirectory, "$time.jpg")
 }
 
-fun rotateFile(file: File, isBackCamera: Boolean = false) {
-    val matrix = Matrix()
-    val bitmap = BitmapFactory.decodeFile(file.path)
-    val rotation = if (isBackCamera) 90f else -90f
-    matrix.postRotate(rotation)
-    if (!isBackCamera) {
-        matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
-    }
-    val result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
-    result.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
-}
+//fun rotateFile(file: File, isBackCamera: Boolean = false) {
+//    val matrix = Matrix()
+//    val bitmap = BitmapFactory.decodeFile(file.path)
+//    val rotation = if (isBackCamera) 90f else -90f
+//    matrix.postRotate(rotation)
+//    if (!isBackCamera) {
+//        matrix.postScale(-1f, 1f, bitmap.width / 2f, bitmap.height / 2f)
+//    }
+//    val result = Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
+//    result.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file))
+//}
 
 fun uriToFile(selectedImg: Uri, context: Context): File {
     val contentResolver: ContentResolver = context.contentResolver
@@ -78,12 +78,21 @@ fun reduceFileImage(file: File): File {
     return file
 }
 
-fun getBitMap(url: String): Bitmap?{
-    return try {
-        val urlx = URL(url)
-        BitmapFactory.decodeStream(urlx.openConnection().getInputStream())
-    } catch (e: IOException) {
-        Log.e("MediaUtility", "getBitMap: Error getting image bitmap")
-        null
-    }
-}
+//fun getBitMap(url: String): Bitmap?{
+//    return try {
+//        val urlx = URL(url)
+//        BitmapFactory.decodeStream(urlx.openConnection().getInputStream())
+//    } catch (e: IOException) {
+//        Log.e("MediaUtility", "getBitMap: Error getting image bitmap")
+//        null
+//    }
+//}
+
+//private fun cropToSquare(imagePath: String): Bitmap {
+//    val bitmap = BitmapFactory.decodeFile(imagePath)
+//    val dimension = bitmap.width.coerceAtMost(bitmap.height)
+//    val x = (bitmap.width - dimension) / 2
+//    val y = (bitmap.height - dimension) / 2
+//
+//    return Bitmap.createBitmap(bitmap, x, y, dimension, dimension)
+//}

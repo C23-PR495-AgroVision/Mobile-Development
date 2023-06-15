@@ -4,6 +4,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import com.fari.agrovision.data.local.preference.UserPreference
 import com.fari.agrovision.data.remote.api.ApiConfig
+import com.fari.agrovision.data.remote.repository.DetectionRepository
 import com.fari.agrovision.data.remote.repository.UserRepository
 
 object Injection {
@@ -14,10 +15,10 @@ object Injection {
         return UserRepository.getInstance(userApiService, authPreferences)
     }
 
-//    fun provideDetectionRepository(): DetectionRepository {
-//        val apiService = ApiConfig.getDetectionApiService()
-//        return DetectionRepository.getInstance(apiService)
-//    }
+    fun provideDetectionRepository(): DetectionRepository {
+        val apiService = ApiConfig.getDetectionApiService()
+        return DetectionRepository.getInstance(apiService)
+    }
 
 //    fun provideArticleRepository(): ArticleRepository {
 //        val apiService = ApiConfig.getArticleApiService()
