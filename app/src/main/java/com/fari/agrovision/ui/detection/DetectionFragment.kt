@@ -96,7 +96,7 @@ class DetectionFragment : Fragment() {
                     binding.progressBar.visibility = View.GONE
                     Toast.makeText(
                         requireActivity(),
-                        "Failed to load article",
+                        "Failed to load detection list",
                         Toast.LENGTH_SHORT
                     )
                         .show()
@@ -119,7 +119,7 @@ class DetectionFragment : Fragment() {
                     checkIfFragmentAttached {
                         Toast.makeText(
                             requireActivity(),
-                            "Failed to load article",
+                            "Failed to load detection list",
                             Toast.LENGTH_SHORT
                         )
                             .show()
