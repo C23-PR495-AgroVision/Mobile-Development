@@ -1,11 +1,21 @@
 package com.fari.agrovision.ui.history
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.fragment.app.viewModels
 import com.fari.agrovision.R
+import com.fari.agrovision.ui.auth.AuthViewModel
+import com.fari.agrovision.ui.auth.AuthViewModelFactory
+import com.fari.agrovision.ui.auth.signup.SignUpActivity
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +31,10 @@ class HistoryFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
+    private val authViewModel: AuthViewModel by viewModels {
+        AuthViewModelFactory.getInstance(requireContext().dataStore)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +50,35 @@ class HistoryFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_history, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        authViewModel.isLogin().observe(requireActivity()) { uid ->
+            if (uid.isNullOrEmpty()) {
+                navigateToSignup()
+            }
+        }
+    }
+
+    private fun navigateToSignup() {
+        checkIfFragmentAttached {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.logout),
+                Toast.LENGTH_SHORT
+            ).show()
+
+            val intent = Intent(requireContext(), SignUpActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun checkIfFragmentAttached(operation: Context.() -> Unit) {
+        if (isAdded && context != null) {
+            operation(requireContext())
+        }
     }
 
     companion object {

@@ -37,7 +37,7 @@ class MainMenuActivity : AppCompatActivity() {
         val appBarConfiguration = AppBarConfiguration(
             setOf(
                 R.id.navigation_home,
-                R.id.navigation_history,
+//                R.id.navigation_history,
                 R.id.navigation_detection,
                 R.id.navigation_profile
             )

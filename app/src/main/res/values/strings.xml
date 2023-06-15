@@ -20,6 +20,7 @@
     <string name="hint_password">Masukkan password</string>
     <string name="signin_now">Sudah mempunyai akun ? Sign In</string>
     <string name="disease_title">Penyakit A</string>
+    <string name="plant_title">Tanaman A</string>
     <string name="result_percentage">95.62%</string>
     <string name="result_description">Deskripsi</string>
     <string name="result_description_text">Lorem ipsum dolor sit amet consectetur. Quis commodo pulvinar sed nulla nunc. Hendrerit gravida pharetra cursus erat dictum ipsum fusce facilisis. Amet curabitur neque blandit elementum scelerisque. Urna eu turpis adipiscing vel amet. Tristique pellentesque risus neque semper. Amet et mi volutpat cursus nulla cras interdum. Quis arcu vivamus amet at vulputate.</string>
@@ -28,7 +29,7 @@
     <string name="greet">Halo, <b>%1$s!</b></string>
     <string name="hello_greeting">Bagaimana kabarmu hari ini?</string>
     <string name="detection">Deteksi</string>
-    <string name="detection_text">Identifikasi tingkat kematangan buah dan penyakit pada tanaman dengan lebih baik. Ayo, temukan cara untuk memastikan buah matang sempurna dan melindungi tanaman dari penyakit dengan mencoba deteksi kematangan buah dan penyakit tanaman bersama AgroVision</string>
+    <string name="detection_text">Cara mudah untuk mengetahui apakah buah sudah matang dan mendeteksi penyakit dari tanaman. \n\nCoba AgroVision sekarang!</string>
     <string name="detect_now">Deteksi Sekarang</string>
     <string name="article">Artikel</string>
     <string name="article_now">Kumpulan artikel bermanfaat seputar tanaman</string>
@@ -61,4 +62,7 @@
     <string name="home">Beranda</string>
     <string name="history">Riwayat</string>
     <string name="profile">Profil</string>
+    <string name="tanggal">14/06/2023</string>
+    <string name="under_construction">UNDER CONSTRUCTION</string>
+    <string name="camera">Camera</string>
 </resources>

@@ -24,6 +24,8 @@ import com.fari.agrovision.ui.auth.AuthViewModelFactory
 import com.fari.agrovision.ui.auth.signup.SignUpActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.fari.agrovision.data.local.Result
+import com.fari.agrovision.ui.article.detail.DetailArticleActivity
+import com.fari.agrovision.ui.camera.ImagePreviewActivity
 
 class HomeFragment : Fragment() {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "auth")
@@ -111,7 +113,6 @@ class HomeFragment : Fragment() {
 
     private fun setupAction() {
         binding.btnDetection.setOnClickListener {
-
             val bottomNavView =
                 requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_view)
             bottomNavView.selectedItemId = R.id.navigation_detection
@@ -119,13 +120,25 @@ class HomeFragment : Fragment() {
             val navController =
                 Navigation.findNavController(requireActivity(), R.id.bottom_nav_host_fragment)
             navController.navigate(R.id.navigation_detection)
+        }
 
+        binding.btnMaintenance.setOnClickListener {
+            val intent = Intent(requireContext(), DetailArticleActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.cvHello.setOnClickListener {
+            val bottomNavView =
+                requireActivity().findViewById<BottomNavigationView>(R.id.bottom_nav_view)
+            bottomNavView.selectedItemId = R.id.navigation_profile
+
+            val navController =
+                Navigation.findNavController(requireActivity(), R.id.bottom_nav_host_fragment)
+            navController.navigate(R.id.navigation_profile)
         }
     }
 
     private fun setDataUserView(dataUser: DataUser) {
-//        val defaultImg = "https://picsum.photos/200/300.jpg"
-//        val shownImgUrl = dataUser.imgUrl ?: defaultImg
         val defaultBitmap: Bitmap = BitmapFactory.decodeResource(resources, R.drawable.img_profile)
         binding.apply {
             val greet = getString(R.string.greet, dataUser.name)
@@ -133,11 +146,6 @@ class HomeFragment : Fragment() {
             val bitmap = base64String?.let { convertBase64ToBitmap(it) } ?: defaultBitmap
             tvGreet.text = greet
             ivHello.setImageBitmap(bitmap)
-//            Glide.with(requireActivity())
-//                .load(shownImgUrl)
-//                .diskCacheStrategy(DiskCacheStrategy.NONE)
-//                .skipMemoryCache(true)
-//                .into(binding.ivHello)
         }
     }
 
@@ -173,13 +181,22 @@ class HomeFragment : Fragment() {
 //    }
 
     private fun navigateToSignup() {
-        Toast.makeText(
-            requireContext(),
-            getString(R.string.logout),
-            Toast.LENGTH_SHORT
-        ).show()
-        val intent = Intent(context, SignUpActivity::class.java)
-        startActivity(intent)
+        checkIfFragmentAttached {
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.logout),
+                Toast.LENGTH_SHORT
+            ).show()
+
+            val intent = Intent(requireContext(), SignUpActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun checkIfFragmentAttached(operation: Context.() -> Unit) {
+        if (isAdded && context != null) {
+            operation(requireContext())
+        }
     }
 
 
