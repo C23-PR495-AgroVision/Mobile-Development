@@ -63,7 +63,7 @@ AgroVision is a user-friendly mobile app that predicts crop diseases and assesse
 ## Development Roadmap
 - [x] [Kotlin](https://kotlinlang.org/)
 - [x] [Glide](https://github.com/bumptech/glide)
-- [x] [Retrofit](https://square.github.io/retrofit/).
+- [x] [Retrofit](https://square.github.io/retrofit/)
 - [x] [CameraX](https://developer.android.com/training/camerax)
 - [x] [Navigation Component](https://developer.android.com/guide/navigation/navigation-getting-started)
 
