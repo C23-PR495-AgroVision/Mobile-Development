@@ -15,14 +15,6 @@ This project is our final project for Bangkit Academy 2023 Capstone Project.
 **Cloud Computing:**
 [AgroVision Cloud Computing Repository](https://github.com/C23-PR495-AgroVision/Cloud-Computing)
 
-**Project Background:**
-
-Indonesia is one of the world's major agricultural nations. About 30% of Indonesia's land area is used for agriculture. The broadness of the land area used for farming activities, supported by the national climate condition, make Indonesia as one of the major producers of various agricultural products.However, there are still several issues related to agriculture in our nation. Two of them are about crop disease and food leftovers, which both contribute to the decline of the national food security level.
-
-The crop disease problems often make it difficult for the farmer to have good both quality and quantity of their harvests. This is because the farmers are not always precise and fast enough to identify their crop conditions.The food leftovers problems, on the other hand, also threaten food security. According to the data from the Ministry of Environment and Forestry, in 2022, about 41.47% of the overall national waste comes from food leftovers. Furthermore, about 39.95% of it comes from households, which is no other than ourselves. 
-
-One type of food leftovers comes from fruits and vegetables that are not suitable for consumption; usually because of already rotten conditions or other non-feasible conditions. One of the reasons for that comes from a lack of human knowledge on recognizing their stored fruits' or vegetables’ ripeness level. This obviously also contributes to the reduction of the national food supply.
-
 ## Application Overview
 
 AgroVision is a user-friendly mobile app that predicts crop diseases and assesses fruit and vegetable ripeness. After registering or logging in, users can upload images from their gallery or use CameraX for analysis. The app securely sends these images to the cloud, utilizing advanced image recognition algorithms and machine learning models. Results are quickly retrieved using Retrofit, enabling users to make informed decisions and optimize their crop yields.
